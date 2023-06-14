@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
 
 @Data
 @Builder
@@ -19,6 +20,8 @@ public class Card {
     private Long id;
     private String title;
     private String description;
+    @OneToMany
+    private Set<User> executors;
     @ManyToOne
     private CardList cardList;
 }

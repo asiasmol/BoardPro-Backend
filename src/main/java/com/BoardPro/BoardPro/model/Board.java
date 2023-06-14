@@ -20,7 +20,10 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-
+    @OneToOne
+    private User owner;
+    @OneToMany
+    private Set<User> users;
     @OneToMany
     private Set<CardList> cardLists;
 }
