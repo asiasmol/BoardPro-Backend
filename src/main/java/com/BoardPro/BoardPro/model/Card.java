@@ -6,26 +6,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="card_lists")
-public class CardList {
+@Table(name="cards")
+public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String title;
-
+    private String description;
     @ManyToOne
-    @JoinColumn(name="boards_id")
-    private Board board;
-
-    @OneToMany
-    private Set<Card> cards;
-
+    private CardList cardList;
 }
