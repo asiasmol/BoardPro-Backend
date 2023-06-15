@@ -1,5 +1,6 @@
-package com.BoardPro.BoardPro.model;
+package com.BoardPro.BoardPro.user;
 
+import com.BoardPro.BoardPro.board.Board;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

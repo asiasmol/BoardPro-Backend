@@ -1,4 +1,4 @@
-package com.BoardPro.BoardPro.model;
+package com.BoardPro.BoardPro.user;
 
 public enum Role {
     USER,

@@ -1,6 +1,6 @@
 package com.BoardPro.BoardPro.config;
 
-import com.BoardPro.BoardPro.repository.UserRepository;
+import com.BoardPro.BoardPro.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,5 +1,7 @@
-package com.BoardPro.BoardPro.model;
+package com.BoardPro.BoardPro.card;
 
+import com.BoardPro.BoardPro.cardList.CardList;
+import com.BoardPro.BoardPro.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,17 +15,15 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="boards")
-public class Board {
-
+@Table(name="cards")
+public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    @OneToOne
-    private User owner;
+    private String description;
     @OneToMany
-    private Set<User> users;
-    @OneToMany
-    private Set<CardList> cardLists;
+    private Set<User> executors;
+    @ManyToOne
+    private CardList cardList;
 }

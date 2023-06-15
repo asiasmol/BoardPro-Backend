@@ -2,9 +2,9 @@ package com.BoardPro.BoardPro.auth;
 
 
 import com.BoardPro.BoardPro.config.JwtService;
-import com.BoardPro.BoardPro.model.Role;
-import com.BoardPro.BoardPro.model.User;
-import com.BoardPro.BoardPro.repository.UserRepository;
+import com.BoardPro.BoardPro.user.Role;
+import com.BoardPro.BoardPro.user.User;
+import com.BoardPro.BoardPro.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
