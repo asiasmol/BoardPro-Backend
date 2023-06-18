@@ -1,16 +1,15 @@
 package com.BoardPro.BoardPro.user;
 
 import com.BoardPro.BoardPro.board.Board;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -29,8 +28,13 @@ public class User implements UserDetails {
     private String lastName;
     private String email;
     private String password;
-    @OneToMany
+
+    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @JsonIgnore
     private Set<Board> boards;
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @Override

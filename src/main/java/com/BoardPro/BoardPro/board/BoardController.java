@@ -1,11 +1,12 @@
 package com.BoardPro.BoardPro.board;
 
+import com.BoardPro.BoardPro.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -14,6 +15,10 @@ public class BoardController {
 
     private final BoardService boardService;
 
+    @GetMapping
+    public ResponseEntity<Set<Board>> gatUserBoards(){
+        return ResponseEntity.ok(boardService.getUserBoards());
+    }
 
     @PostMapping
     public ResponseEntity<Void> create(@RequestBody BoardRequest request){
