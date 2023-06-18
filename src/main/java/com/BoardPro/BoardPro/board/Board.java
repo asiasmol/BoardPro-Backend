@@ -31,6 +31,8 @@ public class Board {
     private Set<User> users;
 
     @OneToMany
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<CardList> cardLists;
 
     @Builder

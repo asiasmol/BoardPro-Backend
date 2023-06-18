@@ -2,11 +2,9 @@ package com.BoardPro.BoardPro.card;
 
 import com.BoardPro.BoardPro.cardList.CardList;
 import com.BoardPro.BoardPro.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Set;
 
@@ -25,5 +23,8 @@ public class Card {
     @OneToMany
     private Set<User> executors;
     @ManyToOne
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @JsonIgnore
     private CardList cardList;
 }

@@ -2,11 +2,9 @@ package com.BoardPro.BoardPro.cardList;
 
 import com.BoardPro.BoardPro.card.Card;
 import com.BoardPro.BoardPro.board.Board;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Set;
 
@@ -25,6 +23,9 @@ public class CardList {
 
     @ManyToOne
     @JoinColumn(name="boards_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @JsonIgnore
     private Board board;
 
     @OneToMany

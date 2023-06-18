@@ -19,7 +19,7 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
     private final UserRepository userRepository;
-    private final UserService userService;
+
 
 
     @Transactional
