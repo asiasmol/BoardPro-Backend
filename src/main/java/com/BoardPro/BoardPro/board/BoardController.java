@@ -24,6 +24,12 @@ public class BoardController {
         return  ResponseEntity.ok().build();
     }
 
+    @DeleteMapping
+    public ResponseEntity<Void> remove(@RequestParam Long boardId){
+        boardService.remove(boardId);
+        return ResponseEntity.ok().build();
+    }
+
 
 
 }

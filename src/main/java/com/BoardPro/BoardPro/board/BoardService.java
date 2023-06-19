@@ -1,5 +1,6 @@
 package com.BoardPro.BoardPro.board;
 
+import com.BoardPro.BoardPro.cardList.CardList;
 import com.BoardPro.BoardPro.user.User;
 import com.BoardPro.BoardPro.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,17 @@ public class BoardService {
         userRepository.save(user);
     }
 
+    public void remove(Long boardId) {
+        User user = getCurrentUser();
+        Optional<Board> optionalBoard = boardRepository.findById(boardId);
+        Board board = optionalBoard.orElseThrow(() -> new RuntimeException("Board bo found"));
+        user.getBoards().remove(board);
+
+        userRepository.save(user);
+        boardRepository.delete(board);
+
+    }
+
     private User getCurrentUser(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Optional<User> optionalUser = Optional.ofNullable((User) auth.getPrincipal());
@@ -43,4 +55,6 @@ public class BoardService {
     public Set<Board> getUserBoards() {
         return boardRepository.findAllByUserEmail(getCurrentUser().getEmail());
     }
+
+
 }

@@ -30,7 +30,7 @@ public class Board {
     @JsonIgnore
     private Set<User> users;
 
-    @OneToMany
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<CardList> cardLists;
