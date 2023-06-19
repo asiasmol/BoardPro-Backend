@@ -6,6 +6,7 @@ import com.BoardPro.BoardPro.cardList.CardList;
 import com.BoardPro.BoardPro.cardList.CardListRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -30,7 +31,6 @@ public class CardService {
                 .cardList(cardList)
                 .build();
 
-
         cardList.getCards().add(card);
         cardRepository.save(card);
         cardListRepository.save(cardList);
@@ -47,4 +47,18 @@ public class CardService {
         cardListRepository.save(cardList);
 
     }
+    @Transactional
+    public void update(CardRequest request, Long cardId, Long boardId, Long cardListId) {
+        Optional<Board> optionalBoard = boardRepository.findById(boardId);
+        Board board = optionalBoard.orElseThrow(() -> new RuntimeException("Board bo found"));
+        CardList cardList = board.getCardLists().stream().filter(c -> c.getId() == cardListId).findAny().get();
+        Card card = cardList.getCards().stream().filter(c -> c.getId() == cardId).findFirst().get();
+        card.setTitle(request.getTitle());
+        card.setDescription(request.getDescription());
+        card.setExecutors(request.getExecutors());
+        card.setCardList(cardListRepository.findById(request.getCardListId()).orElseThrow());
+
+        cardListRepository.save(cardList);
+    }
+
 }

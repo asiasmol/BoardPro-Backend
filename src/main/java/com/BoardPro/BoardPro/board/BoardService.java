@@ -1,6 +1,5 @@
 package com.BoardPro.BoardPro.board;
 
-import com.BoardPro.BoardPro.cardList.CardList;
 import com.BoardPro.BoardPro.user.User;
 import com.BoardPro.BoardPro.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +31,6 @@ public class BoardService {
         board.getUsers().add(user);
         user.getBoards().add(board);
         boardRepository.save(board);
-        userRepository.save(user);
     }
 
     public void remove(Long boardId) {
@@ -48,8 +46,8 @@ public class BoardService {
 
     private User getCurrentUser(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Optional<User> optionalUser = Optional.ofNullable((User) auth.getPrincipal());
-        return optionalUser.orElseThrow(); //todo obsłużyć wyjątek
+        User user = (User) auth.getPrincipal();
+        return userRepository.findByEmail(user.getEmail()).orElseThrow(); //todo obsłużyć wyjątek
     }
 
     public Set<Board> getUserBoards() {

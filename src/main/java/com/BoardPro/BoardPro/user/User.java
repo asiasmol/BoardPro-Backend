@@ -9,7 +9,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -17,6 +16,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name="users")
 public class User implements UserDetails {
@@ -26,12 +26,12 @@ public class User implements UserDetails {
     private Long id;
     private String firstName;
     private String lastName;
+    @EqualsAndHashCode.Include
     private String email;
     private String password;
 
-    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+    @ManyToMany(mappedBy = "users", cascade = {CascadeType.MERGE})
     @ToString.Exclude
-    @EqualsAndHashCode.Exclude
     @JsonIgnore
     private Set<Board> boards;
     @Enumerated(EnumType.STRING)

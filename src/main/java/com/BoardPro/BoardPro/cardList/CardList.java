@@ -16,6 +16,7 @@ import java.util.Set;
 @Table(name="card_lists")
 public class CardList {
     @Id
+    @EqualsAndHashCode.Exclude
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

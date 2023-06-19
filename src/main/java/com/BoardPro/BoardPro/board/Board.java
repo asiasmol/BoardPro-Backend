@@ -17,6 +17,7 @@ import java.util.Set;
 public class Board {
 
     @Id
+    @EqualsAndHashCode.Exclude
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;

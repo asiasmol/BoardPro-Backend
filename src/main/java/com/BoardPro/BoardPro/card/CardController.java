@@ -22,4 +22,10 @@ public class CardController {
         cardService.remove(cardId, boardId, cardListId);
         return ResponseEntity.ok().build();
     }
+
+    @PatchMapping
+    public ResponseEntity<Void> update(@RequestBody CardRequest request, @RequestParam Long cardId, @RequestParam Long boardId, @RequestParam Long cardListId){
+        cardService.update(request, cardId, boardId, cardListId);
+        return ResponseEntity.ok().build();
+    }
 }
