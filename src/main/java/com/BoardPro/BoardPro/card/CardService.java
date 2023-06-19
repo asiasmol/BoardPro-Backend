@@ -4,12 +4,11 @@ import com.BoardPro.BoardPro.board.Board;
 import com.BoardPro.BoardPro.board.BoardRepository;
 import com.BoardPro.BoardPro.cardList.CardList;
 import com.BoardPro.BoardPro.cardList.CardListRepository;
-import com.BoardPro.BoardPro.cardList.CardListRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor
@@ -34,6 +33,17 @@ public class CardService {
 
         cardList.getCards().add(card);
         cardRepository.save(card);
+        cardListRepository.save(cardList);
+
+    }
+    public void remove(Long cardId, Long boardId, Long cardListId) {
+        Optional<Board> optionalBoard = boardRepository.findById(boardId);
+        Board board = optionalBoard.orElseThrow(() -> new RuntimeException("Board bo found"));
+        CardList cardList = board.getCardLists().stream().filter(c -> c.getId() == cardListId).findAny().get();
+        Card card = cardList.getCards().stream().filter(c -> c.getId() == cardId).findFirst().get();
+        cardList.getCards().remove(card);
+
+        cardRepository.delete(card);
         cardListRepository.save(cardList);
 
     }

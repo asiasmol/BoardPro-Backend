@@ -1,6 +1,5 @@
 package com.BoardPro.BoardPro.card;
 
-import com.BoardPro.BoardPro.board.BoardRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +14,12 @@ public class CardController {
     @PostMapping
     public ResponseEntity<Void> add(@RequestBody CardRequest request, @RequestParam Long boardId, @RequestParam Long cardListId){
         cardService.add(request, boardId, cardListId);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Void> remove(@RequestParam Long cardId, @RequestParam Long boardId, @RequestParam Long cardListId){
+        cardService.remove(cardId, boardId, cardListId);
         return ResponseEntity.ok().build();
     }
 }

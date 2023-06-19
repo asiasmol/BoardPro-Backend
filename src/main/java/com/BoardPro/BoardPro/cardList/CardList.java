@@ -28,7 +28,7 @@ public class CardList {
     @JsonIgnore
     private Board board;
 
-    @OneToMany
+    @OneToMany(mappedBy = "cardList", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Card> cards;
 
 }

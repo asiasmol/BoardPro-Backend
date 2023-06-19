@@ -2,7 +2,6 @@ package com.BoardPro.BoardPro.board;
 
 import com.BoardPro.BoardPro.user.User;
 import com.BoardPro.BoardPro.user.UserRepository;
-import com.BoardPro.BoardPro.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
