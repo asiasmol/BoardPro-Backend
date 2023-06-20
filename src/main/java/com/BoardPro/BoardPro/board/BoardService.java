@@ -44,6 +44,15 @@ public class BoardService {
 
     }
 
+    @Transactional
+    public void update(BoardRequest request, Long boardId) {
+        Optional<Board> optionalBoard = boardRepository.findById(boardId);
+        Board board = optionalBoard.orElseThrow(() -> new RuntimeException("Board bo found"));
+        board.setTitle(request.getTitle());
+
+        boardRepository.save(board);
+    }
+
     private User getCurrentUser(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) auth.getPrincipal();

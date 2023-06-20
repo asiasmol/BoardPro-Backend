@@ -2,9 +2,6 @@ package com.BoardPro.BoardPro.cardList;
 
 import com.BoardPro.BoardPro.board.Board;
 import com.BoardPro.BoardPro.board.BoardRepository;
-import com.BoardPro.BoardPro.card.Card;
-import com.BoardPro.BoardPro.card.CardRepository;
-import com.BoardPro.BoardPro.card.CardRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
