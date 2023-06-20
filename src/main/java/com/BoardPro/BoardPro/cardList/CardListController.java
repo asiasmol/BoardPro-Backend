@@ -24,4 +24,12 @@ public class CardListController {
         cardListService.remove(boardId, cardListId);
         return ResponseEntity.ok().build();
     }
+
+    @PatchMapping
+    public ResponseEntity<Void> update(@RequestBody CardListRequest request, @RequestParam Long boardId, @RequestParam Long cardListId){
+        cardListService.update(request, boardId, cardListId);
+        return ResponseEntity.ok().build();
+    }
+
+
 }
