@@ -26,4 +26,9 @@ public class CardController {
     public ResponseEntity<CardDTO> update(@RequestBody CardRequest request, @RequestParam Long cardId, @RequestParam Long boardId, @RequestParam Long cardListId){
         return ResponseEntity.ok(cardService.update(request, cardId, boardId, cardListId));
     }
+
+    @PatchMapping("add-executors")
+    public ResponseEntity<CardDTO> update(@RequestParam String userEmail, @RequestParam Long cardId, @RequestParam Long boardId, @RequestParam Long cardListId){
+        return ResponseEntity.ok(cardService.adUserToExecutors(userEmail, cardId, boardId, cardListId));
+    }
 }

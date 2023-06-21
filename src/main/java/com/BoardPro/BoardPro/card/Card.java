@@ -27,4 +27,8 @@ public class Card {
     @EqualsAndHashCode.Exclude
     @JsonIgnore
     private CardList cardList;
+
+    void addUserToExecutors(User user){
+        this.executors.add(user);
+    }
 }

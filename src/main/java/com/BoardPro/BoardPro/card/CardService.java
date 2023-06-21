@@ -4,6 +4,7 @@ import com.BoardPro.BoardPro.board.Board;
 import com.BoardPro.BoardPro.board.BoardRepository;
 import com.BoardPro.BoardPro.cardList.CardList;
 import com.BoardPro.BoardPro.cardList.CardListRepository;
+import com.BoardPro.BoardPro.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,8 +21,9 @@ public class CardService {
 
     private final CardRepository cardRepository;
 
-    private final CardDTOMapper cartDTOMapper;
+    private final CardDTOMapper cardDTOMapper;
 
+    @Transactional
     public CardDTO add(CardRequest request, Long boardId, Long cardListId) {
         Optional<Board> optionalBoard = boardRepository.findById(boardId);
         Board board = optionalBoard.orElseThrow(() -> new RuntimeException("Board bo found"));
@@ -36,7 +38,7 @@ public class CardService {
         cardList.getCards().add(card);
         cardRepository.save(card);
         cardListRepository.save(cardList);
-        return cartDTOMapper.apply(card);
+        return cardDTOMapper.apply(card);
 
     }
     public void remove(Long cardId, Long boardId, Long cardListId) {
@@ -62,7 +64,19 @@ public class CardService {
         card.setCardList(cardListRepository.findById(request.getCardListId()).orElseThrow());
 
         cardListRepository.save(cardList);
-        return cartDTOMapper.apply(card);
+        return cardDTOMapper.apply(card);
+    }
+
+    @Transactional
+    public CardDTO adUserToExecutors(String userEmail, Long cardId, Long boardId, Long cardListId) {
+        Optional<Board> optionalBoard = boardRepository.findById(boardId);
+        Board board = optionalBoard.orElseThrow(() -> new RuntimeException("Board not found"));
+        CardList cardList = board.getCardLists().stream().filter(c -> c.getId() == cardListId).findAny().get();
+        Card card = cardList.getCards().stream().filter(c -> c.getId() == cardId).findFirst().get();
+        User user = board.getUsers().stream().filter(u -> u.getEmail().equals(userEmail)).findFirst().orElseThrow(() -> new RuntimeException("User not found"));
+        card.addUserToExecutors(user);
+        cardRepository.save(card);
+        return cardDTOMapper.apply(card);
     }
 
 }
