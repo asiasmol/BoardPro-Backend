@@ -19,9 +19,8 @@ public class BoardController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> create(@RequestBody BoardRequest request){
-        boardService.create(request);
-        return  ResponseEntity.ok().build();
+    public ResponseEntity<BoardDTO> create(@RequestBody BoardRequest request){
+        return  ResponseEntity.ok(boardService.create(request));
     }
 
     @DeleteMapping

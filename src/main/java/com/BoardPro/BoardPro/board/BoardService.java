@@ -24,7 +24,7 @@ public class BoardService {
 
 
     @Transactional
-    public void create(BoardRequest request){
+    public BoardDTO create(BoardRequest request){
         User user = getCurrentUser();
         Board board = Board.builder()
                 .title(request.getTitle())
@@ -33,6 +33,7 @@ public class BoardService {
         board.getUsers().add(user);
         user.getBoards().add(board);
         boardRepository.save(board);
+        return boardDTOMapper.apply(board);
     }
 
     public void remove(Long boardId) {
