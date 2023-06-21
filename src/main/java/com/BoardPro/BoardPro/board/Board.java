@@ -43,4 +43,8 @@ public class Board {
         this.users = new HashSet<>();
         this.cardLists = new HashSet<>();
     }
+
+    void addUser(User user){
+        this.users.add(user);
+    }
 }

@@ -34,5 +34,9 @@ public class BoardController {
         return  ResponseEntity.ok(boardService.update(request, boardId));
     }
 
+    @PatchMapping("/add-user")
+    public ResponseEntity<BoardDTO> adUserToBoard(@RequestParam String userEmail, @RequestParam Long boardId){
+        return  ResponseEntity.ok(boardService.adUserToBoard(userEmail, boardId));
+    }
 
 }
