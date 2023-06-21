@@ -20,7 +20,9 @@ public class CardService {
 
     private final CardRepository cardRepository;
 
-    public void add(CardRequest request, Long boardId, Long cardListId) {
+    private final CartDTOMapper cartDTOMapper;
+
+    public CardDTO add(CardRequest request, Long boardId, Long cardListId) {
         Optional<Board> optionalBoard = boardRepository.findById(boardId);
         Board board = optionalBoard.orElseThrow(() -> new RuntimeException("Board bo found"));
         CardList cardList = board.getCardLists().stream().filter(c -> c.getId() == cardListId).findAny().get();
@@ -34,6 +36,7 @@ public class CardService {
         cardList.getCards().add(card);
         cardRepository.save(card);
         cardListRepository.save(cardList);
+        return cartDTOMapper.apply(card);
 
     }
     public void remove(Long cardId, Long boardId, Long cardListId) {
@@ -48,7 +51,7 @@ public class CardService {
 
     }
     @Transactional
-    public void update(CardRequest request, Long cardId, Long boardId, Long cardListId) {
+    public CardDTO update(CardRequest request, Long cardId, Long boardId, Long cardListId) {
         Optional<Board> optionalBoard = boardRepository.findById(boardId);
         Board board = optionalBoard.orElseThrow(() -> new RuntimeException("Board bo found"));
         CardList cardList = board.getCardLists().stream().filter(c -> c.getId() == cardListId).findAny().get();
@@ -59,6 +62,7 @@ public class CardService {
         card.setCardList(cardListRepository.findById(request.getCardListId()).orElseThrow());
 
         cardListRepository.save(cardList);
+        return cartDTOMapper.apply(card);
     }
 
 }

@@ -12,9 +12,8 @@ public class CardController {
     private final CardService cardService;
 
     @PostMapping
-    public ResponseEntity<Void> add(@RequestBody CardRequest request, @RequestParam Long boardId, @RequestParam Long cardListId){
-        cardService.add(request, boardId, cardListId);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<CardDTO> add(@RequestBody CardRequest request, @RequestParam Long boardId, @RequestParam Long cardListId){
+        return ResponseEntity.ok(cardService.add(request, boardId, cardListId));
     }
 
     @DeleteMapping
@@ -24,8 +23,7 @@ public class CardController {
     }
 
     @PatchMapping
-    public ResponseEntity<Void> update(@RequestBody CardRequest request, @RequestParam Long cardId, @RequestParam Long boardId, @RequestParam Long cardListId){
-        cardService.update(request, cardId, boardId, cardListId);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<CardDTO> update(@RequestBody CardRequest request, @RequestParam Long cardId, @RequestParam Long boardId, @RequestParam Long cardListId){
+        return ResponseEntity.ok(cardService.update(request, cardId, boardId, cardListId));
     }
 }
