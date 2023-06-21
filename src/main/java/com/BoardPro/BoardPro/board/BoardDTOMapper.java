@@ -1,6 +1,5 @@
 package com.BoardPro.BoardPro.board;
 
-import com.BoardPro.BoardPro.user.User;
 import com.BoardPro.BoardPro.user.UserDTOMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

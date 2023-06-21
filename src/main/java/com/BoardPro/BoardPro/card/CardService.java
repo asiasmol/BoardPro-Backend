@@ -20,7 +20,7 @@ public class CardService {
 
     private final CardRepository cardRepository;
 
-    private final CartDTOMapper cartDTOMapper;
+    private final CardDTOMapper cartDTOMapper;
 
     public CardDTO add(CardRequest request, Long boardId, Long cardListId) {
         Optional<Board> optionalBoard = boardRepository.findById(boardId);

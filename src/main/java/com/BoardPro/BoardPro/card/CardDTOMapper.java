@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class CartDTOMapper implements Function<Card, CardDTO> {
+public class CardDTOMapper implements Function<Card, CardDTO> {
     private final UserDTOMapper userDTOMapper;
 
 
