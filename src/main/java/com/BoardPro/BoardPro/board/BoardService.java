@@ -1,6 +1,8 @@
 package com.BoardPro.BoardPro.board;
 
 import com.BoardPro.BoardPro.user.User;
+import com.BoardPro.BoardPro.user.UserDTO;
+import com.BoardPro.BoardPro.user.UserDTOMapper;
 import com.BoardPro.BoardPro.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -20,6 +22,8 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final UserRepository userRepository;
     private final BoardDTOMapper boardDTOMapper;
+
+    private final UserDTOMapper userDTOMapper;
 
 
 
@@ -81,4 +85,9 @@ public class BoardService {
     }
 
 
+    public Set<UserDTO> getBoardUser(Long boardId) {
+        Optional<Board> optionalBoard = boardRepository.findById(boardId);
+        Board board = optionalBoard.orElseThrow(() -> new RuntimeException("Board not found"));
+        return board.getUsers().stream().map(userDTOMapper).collect(Collectors.toSet());
+    }
 }

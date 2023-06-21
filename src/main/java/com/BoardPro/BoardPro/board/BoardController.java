@@ -1,5 +1,6 @@
 package com.BoardPro.BoardPro.board;
 
+import com.BoardPro.BoardPro.user.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +38,11 @@ public class BoardController {
     @PatchMapping("/add-user")
     public ResponseEntity<BoardDTO> adUserToBoard(@RequestParam String userEmail, @RequestParam Long boardId){
         return  ResponseEntity.ok(boardService.adUserToBoard(userEmail, boardId));
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<Set<UserDTO>> getBoardUsers(@RequestParam Long boardId){
+        return ResponseEntity.ok(boardService.getBoardUser(boardId));
     }
 
 }
