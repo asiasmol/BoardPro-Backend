@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -18,6 +19,7 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
     private final UserRepository userRepository;
+    private final BoardDTOMapper boardDTOMapper;
 
 
 
@@ -59,8 +61,10 @@ public class BoardService {
         return userRepository.findByEmail(user.getEmail()).orElseThrow(); //todo obsłużyć wyjątek
     }
 
-    public Set<Board> getUserBoards() {
-        return boardRepository.findAllByUserEmail(getCurrentUser().getEmail());
+    public Set<BoardDTO> getUserBoards() {
+        return boardRepository.findAllByUserEmail(getCurrentUser().getEmail())
+                .stream()
+                .map(boardDTOMapper).collect(Collectors.toSet());
     }
 
 

@@ -14,7 +14,7 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping
-    public ResponseEntity<Set<Board>> gatUserBoards(){
+    public ResponseEntity<Set<BoardDTO>> gatUserBoards(){
         return ResponseEntity.ok(boardService.getUserBoards());
     }
 
