@@ -30,9 +30,8 @@ public class BoardController {
     }
 
     @PatchMapping
-    public ResponseEntity<Void> update(@RequestBody BoardRequest request, @RequestParam Long boardId){
-        boardService.update(request, boardId);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<BoardDTO> update(@RequestBody BoardRequest request, @RequestParam Long boardId){
+        return  ResponseEntity.ok(boardService.update(request, boardId));
     }
 
 
