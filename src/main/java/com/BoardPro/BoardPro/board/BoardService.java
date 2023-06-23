@@ -55,7 +55,7 @@ public class BoardService {
     @Transactional
     public BoardDTO update(BoardRequest request, Long boardId) {
         Optional<Board> optionalBoard = boardRepository.findById(boardId);
-        Board board = optionalBoard.orElseThrow(() -> new RuntimeException("Board bo found"));
+        Board board = optionalBoard.orElseThrow(() -> new ApiRequestException("Board bo found"));
         board.setTitle(request.getTitle());
 
         boardRepository.save(board);
@@ -65,7 +65,7 @@ public class BoardService {
     private User getCurrentUser(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) auth.getPrincipal();
-        return userRepository.findByEmail(user.getEmail()).orElseThrow(); //todo obsłużyć wyjątek
+        return userRepository.findByEmail(user.getEmail()).orElseThrow(()-> new ApiRequestException("Board bo found"));
     }
 
     public Set<BoardDTO> getUserBoards() {
@@ -77,9 +77,9 @@ public class BoardService {
     @Transactional
     public BoardDTO adUserToBoard(String userEmail, Long boardId) {
         Optional<Board> optionalBoard = boardRepository.findById(boardId);
-        Board board = optionalBoard.orElseThrow(() -> new RuntimeException("Board not found"));
+        Board board = optionalBoard.orElseThrow(() -> new ApiRequestException("Board not found"));
         Optional<User> optionalUser = userRepository.findByEmail(userEmail);
-        User user = optionalUser.orElseThrow(() -> new RuntimeException("User not found"));
+        User user = optionalUser.orElseThrow(() -> new ApiRequestException("User not found"));
         board.addUser(user);
         boardRepository.save(board);
         return boardDTOMapper.apply(board);
@@ -88,7 +88,7 @@ public class BoardService {
 
     public Set<UserDTO> getBoardUser(Long boardId) {
         Optional<Board> optionalBoard = boardRepository.findById(boardId);
-        Board board = optionalBoard.orElseThrow(() -> new RuntimeException("Board not found"));
+        Board board = optionalBoard.orElseThrow(() -> new ApiRequestException("Board not found"));
         return board.getUsers().stream().map(userDTOMapper).collect(Collectors.toSet());
     }
 }

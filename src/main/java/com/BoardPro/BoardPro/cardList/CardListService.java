@@ -2,6 +2,7 @@ package com.BoardPro.BoardPro.cardList;
 
 import com.BoardPro.BoardPro.board.Board;
 import com.BoardPro.BoardPro.board.BoardRepository;
+import com.BoardPro.BoardPro.exception.ApiRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +20,7 @@ public class CardListService {
 
     public CardListDTO addListBoard(CardListRequest request, Long boardId) {
         Optional<Board> optionalBoard = boardRepository.findById(boardId);
-        Board board = optionalBoard.orElseThrow(() -> new RuntimeException("Board bo found"));
+        Board board = optionalBoard.orElseThrow(() -> new ApiRequestException("Board bo found"));
         // To do handle exception in proper elegant way
 
         CardList cardList = CardList.builder()
@@ -35,7 +36,7 @@ public class CardListService {
 
     public void remove(Long boardId, Long cardListId) {
         Optional<Board> optionalBoard = boardRepository.findById(boardId);
-        Board board = optionalBoard.orElseThrow(() -> new RuntimeException("Board bo found"));
+        Board board = optionalBoard.orElseThrow(() -> new ApiRequestException("Board bo found"));
         CardList cardList = board.getCardLists().stream().filter(c -> c.getId() == cardListId).findAny().get();
         board.getCardLists().remove(cardList);
 
@@ -46,7 +47,7 @@ public class CardListService {
     @Transactional
     public CardListDTO update(CardListRequest request, Long boardId, Long cardListId) {
         Optional<Board> optionalBoard = boardRepository.findById(boardId);
-        Board board = optionalBoard.orElseThrow(() -> new RuntimeException("Board bo found"));
+        Board board = optionalBoard.orElseThrow(() -> new ApiRequestException("Board bo found"));
         CardList cardList = board.getCardLists().stream().filter(c -> c.getId() == cardListId).findAny().get();
         cardList.setTitle(request.getTitle());
 
