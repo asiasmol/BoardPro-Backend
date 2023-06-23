@@ -1,5 +1,6 @@
 package com.BoardPro.BoardPro.board;
 
+import com.BoardPro.BoardPro.exception.ApiRequestException;
 import com.BoardPro.BoardPro.user.User;
 import com.BoardPro.BoardPro.user.UserDTO;
 import com.BoardPro.BoardPro.user.UserDTOMapper;
@@ -43,7 +44,7 @@ public class BoardService {
     public void remove(Long boardId) {
         User user = getCurrentUser();
         Optional<Board> optionalBoard = boardRepository.findById(boardId);
-        Board board = optionalBoard.orElseThrow(() -> new RuntimeException("Board bo found"));
+        Board board = optionalBoard.orElseThrow(() -> new ApiRequestException("Board bo found"));
         user.getBoards().remove(board);
 
         userRepository.save(user);
