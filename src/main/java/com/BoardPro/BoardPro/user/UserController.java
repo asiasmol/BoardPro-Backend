@@ -14,7 +14,8 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public ResponseEntity<UserDTO> gatUser(){
+    public ResponseEntity<UserDTO> getUser(){
+        System.out.println(userService.getCurrentUser());
         return ResponseEntity.ok(userService.getCurrentUser());
     }
 }
