@@ -23,7 +23,6 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final UserRepository userRepository;
     private final BoardDTOMapper boardDTOMapper;
-
     private final UserDTOMapper userDTOMapper;
 
 
@@ -65,17 +64,21 @@ public class BoardService {
     private User getCurrentUser(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) auth.getPrincipal();
-        return userRepository.findByEmail(user.getEmail()).orElseThrow(()-> new ApiRequestException("Board bo found"));
+        return userRepository.findByEmail(user.getEmail()).orElseThrow(()-> new ApiRequestException("User not found"));
     }
 
     public Set<BoardDTO> getUserBoards() {
+        System.out.println(boardRepository.findAllByUserEmail(getCurrentUser().getEmail())
+                .stream()
+                .map(boardDTOMapper).collect(Collectors.toSet()));
         return boardRepository.findAllByUserEmail(getCurrentUser().getEmail())
                 .stream()
                 .map(boardDTOMapper).collect(Collectors.toSet());
+
     }
 
     @Transactional
-    public BoardDTO adUserToBoard(String userEmail, Long boardId) {
+    public BoardDTO addUserToBoard(String userEmail, Long boardId) {
         Optional<Board> optionalBoard = boardRepository.findById(boardId);
         Board board = optionalBoard.orElseThrow(() -> new ApiRequestException("Board not found"));
         Optional<User> optionalUser = userRepository.findByEmail(userEmail);
@@ -91,4 +94,10 @@ public class BoardService {
         Board board = optionalBoard.orElseThrow(() -> new ApiRequestException("Board not found"));
         return board.getUsers().stream().map(userDTOMapper).collect(Collectors.toSet());
     }
+
+    public BoardDTO getBoard(Long boardId) {
+        Board board = getCurrentUser().getBoards().stream().filter(b -> b.getId()==boardId).findAny().orElseThrow(() -> new ApiRequestException("Board not found"));
+        return boardDTOMapper.apply(board);
+    }
+
 }

@@ -14,7 +14,8 @@ public class BoardController {
 
     private final BoardService boardService;
 
-    @GetMapping
+    //zwraca boardy należące do usera
+    @GetMapping("/all")
     public ResponseEntity<Set<BoardDTO>> gatUserBoards(){
         return ResponseEntity.ok(boardService.getUserBoards());
     }
@@ -37,12 +38,19 @@ public class BoardController {
 
     @PatchMapping("/add-user")
     public ResponseEntity<BoardDTO> adUserToBoard(@RequestParam String userEmail, @RequestParam Long boardId){
-        return  ResponseEntity.ok(boardService.adUserToBoard(userEmail, boardId));
+        return  ResponseEntity.ok(boardService.addUserToBoard(userEmail, boardId));
     }
 
+    //zwraca userów należących do boarda
     @GetMapping("/users")
     public ResponseEntity<Set<UserDTO>> getBoardUsers(@RequestParam Long boardId){
         return ResponseEntity.ok(boardService.getBoardUser(boardId));
     }
+
+    @GetMapping
+    public ResponseEntity<BoardDTO> getBoard(@RequestParam Long boardId){
+        return ResponseEntity.ok(boardService.getBoard(boardId));
+    }
+
 
 }
