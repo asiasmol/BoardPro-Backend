@@ -15,7 +15,6 @@ public class CardListController {
 
     @PostMapping
     public ResponseEntity<CardListDTO> add(@RequestBody CardListRequest request, @RequestParam Long boardId){
-        cardListService.addListBoard(request, boardId);
         return ResponseEntity.ok(cardListService.addListBoard(request, boardId));
     }
 

@@ -2,6 +2,7 @@ package com.BoardPro.BoardPro.board;
 
 import com.BoardPro.BoardPro.user.UserDTO;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,7 +38,7 @@ public class BoardController {
     }
 
     @PatchMapping("/add-user")
-    public ResponseEntity<BoardDTO> adUserToBoard(@RequestParam String userEmail, @RequestParam Long boardId){
+    public ResponseEntity<UserDTO> adUserToBoard(@RequestParam String userEmail, @RequestParam Long boardId){
         return  ResponseEntity.ok(boardService.addUserToBoard(userEmail, boardId));
     }
 
@@ -47,9 +48,14 @@ public class BoardController {
         return ResponseEntity.ok(boardService.getBoardUser(boardId));
     }
 
-    @GetMapping
-    public ResponseEntity<BoardDTO> getBoard(@RequestParam Long boardId){
+    @GetMapping("/{boardId}")
+    public ResponseEntity<BoardDTO> getBoard(@PathVariable Long boardId){
         return ResponseEntity.ok(boardService.getBoard(boardId));
+    }
+
+    @DeleteMapping("/remove-user")
+    public ResponseEntity<UserDTO> removeUser(@RequestParam String userEmail, @RequestParam Long boardId) {
+        return ResponseEntity.ok(boardService.removeUser(userEmail, boardId));
     }
 
 

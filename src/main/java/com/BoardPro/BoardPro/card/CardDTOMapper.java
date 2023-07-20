@@ -15,9 +15,6 @@ import java.util.stream.Collectors;
 public class CardDTOMapper implements Function<Card, CardDTO> {
     private final UserDTOMapper userDTOMapper;
 
-
-
-
     @Override
     public CardDTO apply(Card card) {
         Set<UserDTO> executors = (card.getExecutors() != null) ?
@@ -31,7 +28,8 @@ public class CardDTOMapper implements Function<Card, CardDTO> {
                 card.getId(),
                 card.getTitle(),
                 card.getDescription(),
-                executors
+                executors,
+                card.getCardList().getId()
         );
     }
 }

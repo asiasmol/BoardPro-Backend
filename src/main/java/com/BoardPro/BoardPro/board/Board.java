@@ -46,4 +46,8 @@ public class Board {
     void addUser(User user){
         this.users.add(user);
     }
+
+    void removeUser(User user) {
+        this.users.remove(user);
+    }
 }

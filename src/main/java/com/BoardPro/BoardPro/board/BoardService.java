@@ -78,14 +78,14 @@ public class BoardService {
     }
 
     @Transactional
-    public BoardDTO addUserToBoard(String userEmail, Long boardId) {
+    public UserDTO addUserToBoard(String userEmail, Long boardId) {
         Optional<Board> optionalBoard = boardRepository.findById(boardId);
         Board board = optionalBoard.orElseThrow(() -> new ApiRequestException("Board not found"));
         Optional<User> optionalUser = userRepository.findByEmail(userEmail);
         User user = optionalUser.orElseThrow(() -> new ApiRequestException("User not found"));
         board.addUser(user);
         boardRepository.save(board);
-        return boardDTOMapper.apply(board);
+        return userDTOMapper.apply(user);
     }
 
 
@@ -100,4 +100,15 @@ public class BoardService {
         return boardDTOMapper.apply(board);
     }
 
+
+    public UserDTO removeUser(String userEmail, Long boardId) {
+        Optional<Board> optionalBoard = boardRepository.findById(boardId);
+        Board board = optionalBoard.orElseThrow(() -> new ApiRequestException("Board not found"));
+        Optional<User> optionalUser = userRepository.findByEmail(userEmail);
+        User user = optionalUser.orElseThrow(() -> new ApiRequestException("User not found"));
+
+        board.removeUser(user);
+        boardRepository.save(board);
+        return userDTOMapper.apply(user);
+    }
 }

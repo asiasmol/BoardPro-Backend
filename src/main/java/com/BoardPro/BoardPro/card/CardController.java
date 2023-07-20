@@ -27,6 +27,12 @@ public class CardController {
         return ResponseEntity.ok(cardService.update(request, cardId, boardId, cardListId));
     }
 
+    @PatchMapping("/swap")
+    public ResponseEntity<CardDTO> swapCardList(@RequestParam Long cardId, @RequestParam Long boardId, @RequestParam Long newCardListId, @RequestParam Long currentCardListId){
+        System.out.println(cardId+ "controller cardid");
+        return ResponseEntity.ok(cardService.swapCardList(cardId, boardId, newCardListId, currentCardListId));
+    }
+
     @PatchMapping("add-executors")
     public ResponseEntity<CardDTO> update(@RequestParam String userEmail, @RequestParam Long cardId, @RequestParam Long boardId, @RequestParam Long cardListId){
         return ResponseEntity.ok(cardService.adUserToExecutors(userEmail, cardId, boardId, cardListId));
