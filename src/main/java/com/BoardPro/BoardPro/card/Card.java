@@ -20,7 +20,7 @@ public class Card {
     private Long id;
     private String title;
     private String description;
-    @OneToMany
+    @ManyToMany
     private Set<User> executors;
     @ManyToOne
     @ToString.Exclude
