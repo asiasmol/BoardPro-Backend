@@ -4,7 +4,7 @@
 and collaborative teamwork through an intuitive interface where users can create, 
 move, and assign cards to different lists.
 
-BoardPro FRONTEND LINK - [(in progress)](https://github.com/asiasmol/BoardPro-Frontend.git)
+BoardPro FRONTEND LINK - [(LINK)](https://github.com/asiasmol/BoardPro-Frontend.git)
 
 ## :star: Technology stack
 <img align="left" alt="Java" width="50px" src="https://raw.githubusercontent.com/github/explore/5b3600551e122a3277c2c5368af2ad5725ffa9a1/topics/java/java.png" />
