@@ -1,5 +1,6 @@
 package com.BoardPro.BoardPro.card;
 
+import com.BoardPro.BoardPro.user.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,7 @@ public class CardController {
 
     @PatchMapping
     public ResponseEntity<CardDTO> update(@RequestBody CardRequest request, @RequestParam Long cardId, @RequestParam Long boardId, @RequestParam Long cardListId){
+        System.out.println(boardId);
         return ResponseEntity.ok(cardService.update(request, cardId, boardId, cardListId));
     }
 
@@ -34,7 +36,8 @@ public class CardController {
     }
 
     @PatchMapping("add-executors")
-    public ResponseEntity<CardDTO> update(@RequestParam String userEmail, @RequestParam Long cardId, @RequestParam Long boardId, @RequestParam Long cardListId){
+    public ResponseEntity<UserDTO> update(@RequestParam String userEmail, @RequestParam Long cardId, @RequestParam Long boardId, @RequestParam Long cardListId){
         return ResponseEntity.ok(cardService.adUserToExecutors(userEmail, cardId, boardId, cardListId));
     }
+
 }

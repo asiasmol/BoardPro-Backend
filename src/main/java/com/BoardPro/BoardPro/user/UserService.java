@@ -26,5 +26,4 @@ public class UserService {
         Set<User> users = userRepository.getAll();
         return users.stream().map(userDTOMapper::apply).collect(Collectors.toSet());
     }
-
 }
