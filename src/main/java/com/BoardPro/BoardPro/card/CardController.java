@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Set;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/card")
@@ -25,18 +27,16 @@ public class CardController {
 
     @PatchMapping
     public ResponseEntity<CardDTO> update(@RequestBody CardRequest request, @RequestParam Long cardId, @RequestParam Long boardId, @RequestParam Long cardListId){
-        System.out.println(boardId);
         return ResponseEntity.ok(cardService.update(request, cardId, boardId, cardListId));
     }
 
     @PatchMapping("/swap")
-    public ResponseEntity<CardDTO> swapCardList(@RequestParam Long cardId, @RequestParam Long boardId, @RequestParam Long newCardListId, @RequestParam Long currentCardListId){
-        System.out.println(cardId+ "controller cardid");
-        return ResponseEntity.ok(cardService.swapCardList(cardId, boardId, newCardListId, currentCardListId));
+    public ResponseEntity<Set<CardDTO>> swap(@RequestBody Set<CardRequest> requests, @RequestParam Long boardId) {
+        return ResponseEntity.ok(cardService.swapCards(requests, boardId));
     }
 
     @PatchMapping("add-executors")
-    public ResponseEntity<UserDTO> update(@RequestParam String userEmail, @RequestParam Long cardId, @RequestParam Long boardId, @RequestParam Long cardListId){
+    public ResponseEntity<UserDTO> update(@RequestParam Long cardId, @RequestParam Long boardId, @RequestParam Long cardListId, @RequestParam String userEmail){
         return ResponseEntity.ok(cardService.adUserToExecutors(userEmail, cardId, boardId, cardListId));
     }
 

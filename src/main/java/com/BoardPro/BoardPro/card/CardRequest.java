@@ -14,8 +14,10 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CardRequest {
+    private Long id;
     private String title;
     private String description;
     private Set<User> executors;
     private Long cardListId;
+    private Integer orderNumber;
 }

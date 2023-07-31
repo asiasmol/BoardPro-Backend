@@ -9,6 +9,7 @@ public record CardDTO(
         Long id,
         String title,
         String description,
+        Integer orderNumber,
         Set<UserDTO>executors,
         Long cardListId
 ) {

@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -21,9 +23,7 @@ public class CardService {
 
     private final BoardRepository boardRepository;
     private final CardListRepository cardListRepository;
-
     private final CardRepository cardRepository;
-
     private final CardDTOMapper cardDTOMapper;
     private final UserDTOMapper userDTOMapper;
 
@@ -32,13 +32,13 @@ public class CardService {
         Optional<Board> optionalBoard = boardRepository.findById(boardId);
         Board board = optionalBoard.orElseThrow(() -> new ApiRequestException("Board bo found"));
         CardList cardList = board.getCardLists().stream().filter(c -> c.getId() == cardListId).findAny().get();
-        // To do handle exception in proper elegant way
+        int orderNumber = cardList.getCards().size() + 1;
 
         Card card = Card.builder()
                 .title(request.getTitle())
                 .cardList(cardList)
+                .orderNumber(orderNumber)
                 .build();
-
         cardList.getCards().add(card);
         cardRepository.save(card);
         cardListRepository.save(cardList);
@@ -71,20 +71,6 @@ public class CardService {
     }
 
     @Transactional
-    public CardDTO swapCardList(Long cardId, Long boardId, Long currentCardListId, Long newCardListId){
-        Optional<Board> optionalBoard = boardRepository.findById(boardId);
-        Board board = optionalBoard.orElseThrow(() -> new ApiRequestException("Board bo found"));
-        CardList newCardList = board.getCardLists().stream().filter(c -> c.getId() == newCardListId).findAny().get();
-        CardList currentCardList = board.getCardLists().stream().filter(c -> c.getId() == currentCardListId).findAny().get();
-        Card card = cardRepository.findById(cardId).orElseThrow(() -> new ApiRequestException("Card bo found"));
-        card.setCardList(cardListRepository.findById(newCardListId).orElseThrow(() -> new ApiRequestException("CardList bo found")));
-        cardListRepository.save(newCardList);
-        cardListRepository.save(currentCardList);
-        return cardDTOMapper.apply(card);
-    }
-
-
-    @Transactional
     public UserDTO adUserToExecutors(String userEmail, Long cardId, Long boardId, Long cardListId) {
         Optional<Board> optionalBoard = boardRepository.findById(boardId);
         Board board = optionalBoard.orElseThrow(() -> new ApiRequestException("Board not found"));
@@ -94,6 +80,21 @@ public class CardService {
         card.addUserToExecutors(user);
         cardRepository.save(card);
         return userDTOMapper.apply(user);
+    }
+
+    @Transactional
+    public Set<CardDTO> swapCards(Set<CardRequest> requests, Long boardId) {
+        Optional<Board> optionalBoard = boardRepository.findById(boardId);
+        Board board = optionalBoard.orElseThrow(() -> new ApiRequestException("Board not found"));
+        return requests.stream().map(request -> {
+            Card card = cardRepository.findById(request.getId()).orElseThrow(() -> new ApiRequestException("Card not found"));
+            Long newCardListId = request.getCardListId();
+            CardList updatedCardList = board.getCardLists().stream().filter(c -> c.getId() == newCardListId).findAny().orElseThrow(() -> new ApiRequestException("CardList not found"));
+            card.setOrderNumber(request.getOrderNumber());
+            card.setCardList(updatedCardList);
+            cardRepository.save(card);
+            return cardDTOMapper.apply(card);
+        }).collect(Collectors.toSet());
     }
 
 }

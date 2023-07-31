@@ -28,6 +28,7 @@ public class CardDTOMapper implements Function<Card, CardDTO> {
                 card.getId(),
                 card.getTitle(),
                 card.getDescription(),
+                card.getOrderNumber(),
                 executors,
                 card.getCardList().getId()
         );

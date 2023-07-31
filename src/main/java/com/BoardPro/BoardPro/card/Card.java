@@ -20,6 +20,7 @@ public class Card {
     private Long id;
     private String title;
     private String description;
+    private Integer orderNumber;
     @ManyToMany
     private Set<User> executors;
     @ManyToOne

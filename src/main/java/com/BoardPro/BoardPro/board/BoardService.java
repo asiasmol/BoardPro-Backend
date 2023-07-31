@@ -56,7 +56,7 @@ public class BoardService {
         Optional<Board> optionalBoard = boardRepository.findById(boardId);
         Board board = optionalBoard.orElseThrow(() -> new ApiRequestException("Board bo found"));
         board.setTitle(request.getTitle());
-
+        board.setCardLists(request.getCardLists());
         boardRepository.save(board);
         return boardDTOMapper.apply(board);
     }
@@ -68,9 +68,9 @@ public class BoardService {
     }
 
     public Set<BoardDTO> getUserBoards() {
-        System.out.println(boardRepository.findAllByUserEmail(getCurrentUser().getEmail())
+        boardRepository.findAllByUserEmail(getCurrentUser().getEmail())
                 .stream()
-                .map(boardDTOMapper).collect(Collectors.toSet()));
+                .map(boardDTOMapper).collect(Collectors.toSet());
         return boardRepository.findAllByUserEmail(getCurrentUser().getEmail())
                 .stream()
                 .map(boardDTOMapper).collect(Collectors.toSet());
