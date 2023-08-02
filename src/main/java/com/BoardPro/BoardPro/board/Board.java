@@ -21,6 +21,8 @@ public class Board {
     private Long id;
     private String title;
 
+    private String imagePath;
+
     @ManyToOne
     private User owner;
 
@@ -36,11 +38,12 @@ public class Board {
     private Set<CardList> cardLists;
 
     @Builder
-    public Board(String title, User owner) {
+    public Board(String title, User owner, String imagePath) {
         this.title = title;
         this.owner = owner;
         this.users = new HashSet<>();
         this.cardLists = new HashSet<>();
+        this.imagePath = imagePath;
     }
 
     void addUser(User user){

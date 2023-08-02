@@ -33,6 +33,7 @@ public class BoardService {
         Board board = Board.builder()
                 .title(request.getTitle())
                 .owner(user)
+                .imagePath(request.getImagePath())
                 .build();
         board.getUsers().add(user);
         user.getBoards().add(board);

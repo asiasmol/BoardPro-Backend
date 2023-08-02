@@ -15,4 +15,5 @@ import java.util.Set;
 public class BoardRequest {
     private String title;
     private Set<CardList> cardLists;
+    private String imagePath;
 }

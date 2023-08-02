@@ -17,6 +17,6 @@ public class BoardDTOMapper implements Function<Board, BoardDTO> {
 
     @Override
     public BoardDTO apply(Board board) {
-        return new BoardDTO(board.getId(), board.getTitle(), userDTOMapper.apply(board.getOwner()), board.getUsers().stream().map(userDTOMapper).collect(Collectors.toSet()), board.getCardLists().stream().map(cardListDTOMapper).collect(Collectors.toSet()));
+        return new BoardDTO(board.getId(), board.getTitle(), userDTOMapper.apply(board.getOwner()), board.getUsers().stream().map(userDTOMapper).collect(Collectors.toSet()), board.getCardLists().stream().map(cardListDTOMapper).collect(Collectors.toSet()), board.getImagePath());
     }
 }
