@@ -18,7 +18,7 @@ public class CardListService {
 
     private final CardListDTOMapper cardListDTOMapper;
 
-    public CardListDTO addListBoard(CardListRequest request, Long boardId) {
+    public CardListDTO addListToBoard(CardListRequest request, Long boardId) {
         Optional<Board> optionalBoard = boardRepository.findById(boardId);
         Board board = optionalBoard.orElseThrow(() -> new ApiRequestException("Board bo found"));
         // To do handle exception in proper elegant way
@@ -34,7 +34,7 @@ public class CardListService {
         return cardListDTOMapper.apply(cardList);
     }
 
-    public void remove(Long boardId, Long cardListId) {
+    public void deleteCardList(Long boardId, Long cardListId) {
         Optional<Board> optionalBoard = boardRepository.findById(boardId);
         Board board = optionalBoard.orElseThrow(() -> new ApiRequestException("Board bo found"));
         CardList cardList = board.getCardLists().stream().filter(c -> c.getId() == cardListId).findAny().get();

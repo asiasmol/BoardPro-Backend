@@ -36,7 +36,7 @@ public class BoardService {
                 .imagePath(request.getImagePath())
                 .build();
         board.getUsers().add(user);
-        user.getBoards().add(board);
+        user.addBoard(board);
         boardRepository.save(board);
         return boardDTOMapper.apply(board);
     }
@@ -62,16 +62,13 @@ public class BoardService {
         return boardDTOMapper.apply(board);
     }
 
-    private User getCurrentUser(){
+    User getCurrentUser(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) auth.getPrincipal();
         return userRepository.findByEmail(user.getEmail()).orElseThrow(()-> new ApiRequestException("User not found"));
     }
 
     public Set<BoardDTO> getUserBoards() {
-        boardRepository.findAllByUserEmail(getCurrentUser().getEmail())
-                .stream()
-                .map(boardDTOMapper).collect(Collectors.toSet());
         return boardRepository.findAllByUserEmail(getCurrentUser().getEmail())
                 .stream()
                 .map(boardDTOMapper).collect(Collectors.toSet());

@@ -35,7 +35,7 @@ public class Board {
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<CardList> cardLists;
+    private Set<CardList> cardLists = new HashSet<>();
 
     @Builder
     public Board(String title, User owner, String imagePath) {
@@ -52,5 +52,9 @@ public class Board {
 
     void removeUser(User user) {
         this.users.remove(user);
+    }
+
+    void addCardList(CardList cardList){
+        this.cardLists.add(cardList);
     }
 }

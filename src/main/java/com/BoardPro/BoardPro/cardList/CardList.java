@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -32,4 +33,9 @@ public class CardList {
     @OneToMany(mappedBy = "cardList", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Card> cards;
 
+    @Builder
+    public CardList(Long id, String title) {
+        this.title = title;
+        this.cards = new HashSet<>();
+    }
 }

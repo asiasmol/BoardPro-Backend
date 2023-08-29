@@ -15,12 +15,12 @@ public class CardListController {
 
     @PostMapping
     public ResponseEntity<CardListDTO> add(@RequestBody CardListRequest request, @RequestParam Long boardId){
-        return ResponseEntity.ok(cardListService.addListBoard(request, boardId));
+        return ResponseEntity.ok(cardListService.addListToBoard(request, boardId));
     }
 
     @DeleteMapping
     public ResponseEntity<Void> remove(@RequestParam Long boardId, @RequestParam Long cardListId){
-        cardListService.remove(boardId, cardListId);
+        cardListService.deleteCardList(boardId, cardListId);
         return ResponseEntity.ok().build();
     }
 

@@ -28,7 +28,7 @@ public class CardService {
     private final UserDTOMapper userDTOMapper;
 
     @Transactional
-    public CardDTO add(CardRequest request, Long boardId, Long cardListId) {
+    public CardDTO addCardToCardList(CardRequest request, Long boardId, Long cardListId) {
         Optional<Board> optionalBoard = boardRepository.findById(boardId);
         Board board = optionalBoard.orElseThrow(() -> new ApiRequestException("Board bo found"));
         CardList cardList = board.getCardLists().stream().filter(c -> c.getId() == cardListId).findAny().get();
@@ -39,13 +39,14 @@ public class CardService {
                 .cardList(cardList)
                 .orderNumber(orderNumber)
                 .build();
+
         cardList.getCards().add(card);
         cardRepository.save(card);
         cardListRepository.save(cardList);
         return cardDTOMapper.apply(card);
 
     }
-    public void remove(Long cardId, Long boardId, Long cardListId) {
+    public void deleteCard(Long cardId, Long boardId, Long cardListId) {
         Optional<Board> optionalBoard = boardRepository.findById(boardId);
         Board board = optionalBoard.orElseThrow(() -> new ApiRequestException("Board bo found"));
         CardList cardList = board.getCardLists().stream().filter(c -> c.getId() == cardListId).findAny().get();
@@ -57,7 +58,7 @@ public class CardService {
 
     }
     @Transactional
-    public CardDTO update(CardRequest request, Long cardId, Long boardId, Long cardListId) {
+    public CardDTO updateCard(CardRequest request, Long cardId, Long boardId, Long cardListId) {
         Optional<Board> optionalBoard = boardRepository.findById(boardId);
         Board board = optionalBoard.orElseThrow(() -> new ApiRequestException("Board no found"));
         CardList cardList = board.getCardLists().stream().filter(c -> c.getId() == cardListId).findAny().get();
@@ -65,13 +66,13 @@ public class CardService {
         card.setTitle(request.getTitle());
         card.setDescription(request.getDescription());
         card.setExecutors(request.getExecutors());
-        card.setCardList(cardListRepository.findById(request.getCardListId()).orElseThrow(() -> new ApiRequestException("CardList bo found")));
+        card.setCardList(cardListRepository.findById(request.getCardListId()).orElseThrow(() -> new ApiRequestException("CardList not found")));
         cardListRepository.save(cardList);
         return cardDTOMapper.apply(card);
     }
 
     @Transactional
-    public UserDTO adUserToExecutors(String userEmail, Long cardId, Long boardId, Long cardListId) {
+    public UserDTO addUserToExecutors(String userEmail, Long cardId, Long boardId, Long cardListId) {
         Optional<Board> optionalBoard = boardRepository.findById(boardId);
         Board board = optionalBoard.orElseThrow(() -> new ApiRequestException("Board not found"));
         CardList cardList = board.getCardLists().stream().filter(c -> c.getId() == cardListId).findAny().get();

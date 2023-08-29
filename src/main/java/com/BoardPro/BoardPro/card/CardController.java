@@ -16,18 +16,18 @@ public class CardController {
 
     @PostMapping
     public ResponseEntity<CardDTO> add(@RequestBody CardRequest request, @RequestParam Long boardId, @RequestParam Long cardListId){
-        return ResponseEntity.ok(cardService.add(request, boardId, cardListId));
+        return ResponseEntity.ok(cardService.addCardToCardList(request, boardId, cardListId));
     }
 
     @DeleteMapping
     public ResponseEntity<Void> remove(@RequestParam Long cardId, @RequestParam Long boardId, @RequestParam Long cardListId){
-        cardService.remove(cardId, boardId, cardListId);
+        cardService.deleteCard(cardId, boardId, cardListId);
         return ResponseEntity.ok().build();
     }
 
     @PatchMapping
     public ResponseEntity<CardDTO> update(@RequestBody CardRequest request, @RequestParam Long cardId, @RequestParam Long boardId, @RequestParam Long cardListId){
-        return ResponseEntity.ok(cardService.update(request, cardId, boardId, cardListId));
+        return ResponseEntity.ok(cardService.updateCard(request, cardId, boardId, cardListId));
     }
 
     @PatchMapping("/swap")
@@ -37,7 +37,7 @@ public class CardController {
 
     @PatchMapping("add-executors")
     public ResponseEntity<UserDTO> update(@RequestParam Long cardId, @RequestParam Long boardId, @RequestParam Long cardListId, @RequestParam String userEmail){
-        return ResponseEntity.ok(cardService.adUserToExecutors(userEmail, cardId, boardId, cardListId));
+        return ResponseEntity.ok(cardService.addUserToExecutors(userEmail, cardId, boardId, cardListId));
     }
 
 }
