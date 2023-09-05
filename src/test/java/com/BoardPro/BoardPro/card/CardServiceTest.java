@@ -34,8 +34,6 @@ class CardServiceTest {
     @Mock
     private BoardRepository boardRepository;
     @Mock
-    private UserRepository userRepository;
-    @Mock
     private CardDTOMapper cardDTOMapper;
     @Mock
     private UserDTOMapper userDTOMapper;

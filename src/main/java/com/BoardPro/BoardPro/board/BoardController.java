@@ -2,8 +2,8 @@ package com.BoardPro.BoardPro.board;
 
 import com.BoardPro.BoardPro.user.UserDTO;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -33,6 +33,7 @@ public class BoardController {
     }
 
     @PatchMapping
+//    @SendTo("/topic")
     public ResponseEntity<BoardDTO> update(@RequestBody BoardRequest request, @RequestParam Long boardId){
         return  ResponseEntity.ok(boardService.update(request, boardId));
     }

@@ -18,7 +18,8 @@ public class CorsConfig {
 
         final CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.setAllowedOrigins(Collections.singletonList("http://localhost:3000"));
+        config.setAllowedOrigins(Collections.singletonList("http://localhost:3000/"));
+//        config.setAllowedOrigins(Collections.singletonList("http://boardpro.s3-website.eu-north-1.amazonaws.com"));
         config.setAllowedHeaders(Arrays.asList("Origin", "Content-Type", "Accept", "Authorization"));
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         long maxAgeSecs = 3600;

@@ -6,6 +6,7 @@ import com.BoardPro.BoardPro.user.UserDTO;
 import com.BoardPro.BoardPro.user.UserDTOMapper;
 import com.BoardPro.BoardPro.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ public class BoardService {
     private final UserRepository userRepository;
     private final BoardDTOMapper boardDTOMapper;
     private final UserDTOMapper userDTOMapper;
+    private final SimpMessagingTemplate messagingTemplate;
 
 
 
@@ -83,6 +85,7 @@ public class BoardService {
         User user = optionalUser.orElseThrow(() -> new ApiRequestException("User not found"));
         board.addUser(user);
         boardRepository.save(board);
+//        messagingTemplate.convertAndSend("/topic/boardUpdates/" + boardId, board);
         return userDTOMapper.apply(user);
     }
 

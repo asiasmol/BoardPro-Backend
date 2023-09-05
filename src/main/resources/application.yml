@@ -1,7 +1,9 @@
 spring:
   datasource:
+#    url: jdbc:postgresql://boardpro1.cd0uzudjuwyq.eu-north-1.rds.amazonaws.com:5432/BoardPro1
     url: jdbc:postgresql://localhost:5432/BoardPro
     username: asia
+#    password: BoardPro123
     password: test
     driver-class-name: org.postgresql.Driver
   jpa:
@@ -13,3 +15,5 @@ spring:
         format_sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+server:
+  port: 8080
