@@ -29,7 +29,7 @@ Deploy
 * AWS RDS
 
 # Live version
-soon
+[Live version](http://boardpro.s3-website.eu-north-1.amazonaws.com)
 
 # Link Frontend 
 LINK - [(LINK)](https://github.com/asiasmol/BoardPro-Frontend.git)
