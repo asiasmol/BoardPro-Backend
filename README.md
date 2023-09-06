@@ -1,17 +1,42 @@
-# :star: BoardPro
+# Powerboard
+Kanban board web application
+## Goal
+Powerboard was created as a 'skill showcase' app and hopefully will help me land my first job as a Java developer.
+## Technologies
+Backend
+* Java
+* Spring Boot
+* Spring Security
+* JPA
+* Hibernate
+* JJWT
+* Lombok
+* PostgreSQL
+* Websocket
 
-🖥️ BoardPro is a kanban board application that allows for organizing tasks, projects, 
-and collaborative teamwork through an intuitive interface where users can create, 
-move, and assign cards to different lists.
+Frontend
+* Typescript
+* React
+* Dnd-kit
+* Mui-materials
+
+Deploy
+* AWS S3
+* AWS EC2
+* AWS RDS
+
+# Live version
+http://powerboard-front.s3-website.eu-north-1.amazonaws.com/
+
+## Gifs
+
+![PB_HOME](https://github.com/tymsztrumpf/Powerboard-backend/assets/106514240/b671c264-c696-4e04-a169-6d429cf8a55c)
+![PB_DND](https://github.com/tymsztrumpf/Powerboard-backend/assets/106514240/7916d3d8-b448-499f-a653-bac658d3dd61)
+![PB_ADDUSER](https://github.com/tymsztrumpf/Powerboard-backend/assets/106514240/fb6c880c-9b1a-4750-b4e5-9fde9b9016e7)
 
 BoardPro FRONTEND LINK - [(LINK)](https://github.com/asiasmol/BoardPro-Frontend.git)
 
-## :star: Technology stack
-<img align="left" alt="Java" width="50px" src="https://raw.githubusercontent.com/github/explore/5b3600551e122a3277c2c5368af2ad5725ffa9a1/topics/java/java.png" />
-<img align="left" alt="Spring" width="50px" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/spring-boot/spring-boot.png" />
-<img align="left"alt="React"width="50px"src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/react/react.png" />
-<img align="left"alt="TypeScript"width="50px"src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/typescript/typescript.png" />
-<img align="left"alt="Java"width="50px"src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/css/css.png" />
+
 
 
 
