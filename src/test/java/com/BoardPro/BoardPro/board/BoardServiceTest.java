@@ -71,13 +71,13 @@ class BoardServiceTest {
                 null,
                 expectedBoard.getImagePath());
 
-        // when
         when(securityContext.getAuthentication()).thenReturn(authentication);
         when(authentication.getPrincipal()).thenReturn(user);
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
         when(boardRepository.save(any(Board.class))).thenReturn(expectedBoard);
         when(boardDTOMapper.apply(any(Board.class))).thenReturn(expectedDTO);
 
+        // when
         BoardDTO result = boardService.create(request);
 
         // then
@@ -94,11 +94,11 @@ class BoardServiceTest {
         User user = new User();
         user.setEmail(email);
 
-        // when
         when(securityContext.getAuthentication()).thenReturn(authentication);
         when(authentication.getPrincipal()).thenReturn(user);
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
 
+        // when
         boardService.getUserBoards();
 
         // then
@@ -116,12 +116,12 @@ class BoardServiceTest {
         user.addBoard(board);
         Set<Board> expectedBoards = Set.of();
 
-        // when
         when(securityContext.getAuthentication()).thenReturn(authentication);
         when(authentication.getPrincipal()).thenReturn(user);
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
         when(boardRepository.findById(board.getId())).thenReturn(Optional.of(board));
 
+        // when
         boardService.remove(board.getId());
         Set<Board> result = user.getBoards();
 
@@ -147,11 +147,11 @@ class BoardServiceTest {
                 null,
                 null);
 
-        // when
         when(boardRepository.findById(board.getId())).thenReturn(Optional.of(board));
         when(boardRepository.save(any(Board.class))).thenReturn(board);
         when(boardDTOMapper.apply(any(Board.class))).thenReturn(expectedDTO);
 
+        // when
         BoardDTO result = boardService.update(request, board.getId());
 
         // then
@@ -170,10 +170,9 @@ class BoardServiceTest {
 
         String nonExistingEmail = "test@email.com";
 
-        // when
         when(boardRepository.findById(board.getId())).thenReturn(Optional.of(board));
 
-        // then
+        // when-then
         assertThrows(ApiRequestException.class, () -> {
             boardService.addUserToBoard(nonExistingEmail, board.getId());
         });
@@ -194,10 +193,11 @@ class BoardServiceTest {
 
         Set<User> expectedUserSet = Set.of(user);
 
-        // when
         when(userRepository.findByEmail(email)).thenReturn(Optional.of(user));
         when(boardRepository.findById(board.getId())).thenReturn(Optional.of(board));
         when(boardRepository.save(any(Board.class))).thenReturn(board);
+
+        // when
         boardService.addUserToBoard(email, board.getId());
         Set<User> result = board.getUsers();
 
@@ -223,10 +223,10 @@ class BoardServiceTest {
         board.setId(1L);
         board.setUsers(users);
 
-        // when
         when(boardRepository.findById(board.getId())).thenReturn(Optional.of(board));
         when(userDTOMapper.apply(any(User.class))).thenReturn(userDTO);
 
+        // when
         Set<UserDTO> result = boardService.getBoardUser(board.getId());
 
         // then
@@ -240,12 +240,11 @@ class BoardServiceTest {
         User user = new User();
         user.setBoards(new HashSet<>());
 
-        // when
         when(securityContext.getAuthentication()).thenReturn(authentication);
         when(authentication.getPrincipal()).thenReturn(user);
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
 
-        // then
+        // when-then
         assertThrows(ApiRequestException.class, () -> {
             boardService.getBoard(nonExistentBoardId);
         });
@@ -264,11 +263,12 @@ class BoardServiceTest {
 
         BoardDTO expectedDTO = new BoardDTO(board.getId(), null, null, null, null, null);
 
-        // when
         when(securityContext.getAuthentication()).thenReturn(authentication);
         when(authentication.getPrincipal()).thenReturn(user);
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
         when(boardDTOMapper.apply(any(Board.class))).thenReturn(expectedDTO);
+
+        // when
         BoardDTO result = boardService.getBoard(board.getId());
 
         // then
@@ -285,10 +285,9 @@ class BoardServiceTest {
 
         String nonExistingEmail = "test@email.com";
 
-        // when
         when(boardRepository.findById(board.getId())).thenReturn(Optional.of(board));
 
-        // then
+        // when-then
         assertThrows(ApiRequestException.class, () -> {
             boardService.removeUser(nonExistingEmail, board.getId());
         });
@@ -309,10 +308,10 @@ class BoardServiceTest {
         board.setUsers(users);
         Set<User> expectedUserSet = Set.of();
 
-        // when
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
         when(boardRepository.findById(board.getId())).thenReturn(Optional.of(board));
 
+        // when
         boardService.removeUser(email, board.getId());
 
         Set<User> result = board.getUsers();
